@@ -1,18 +1,32 @@
 const express=require('express');
 const app=express();
-const PORT=2000
+const PORT=2000;
+const path=require('path');
 
-app.get('/',(req,res)=>{
-    res.send('welcome to backend')
+//static files
+
+let files = [{
+    path: '/',
+    filePath: '/home.html'
+},
+{
+    path: '/css',
+    filePath: '/style.css'
+},
+{
+    path:'/javascript',
+    filePath:"/main.js"
+}
+
+]
+
+files.forEach(file => {
+    app.get(file.path ,(req,res)=>{
+        res.sendFile(path.join(__dirname,file.filePath) )
+    })
 })
-app.get('/data',(req,res)=>{
-    const id=req.query.id
-    res.send('welcome to the node js' +id)
-})
-app.get('/data/:id',(req,res)=>{
-    const id=req.params.id
-    res.send('welcome to the node js' +id)
-})
+
+
 
 app.listen(PORT,()=>{
     console.log(`server listening at port no ${PORT}`)
