@@ -16,6 +16,14 @@ let files = [{
 {
     path:'/javascript',
     filePath:"/main.js"
+},
+{
+    path:"/image",
+    filePath:"Screenshot.png"
+},
+{
+    path:"/video",
+    filePath:"/video.mp4"
 }
 
 ]
