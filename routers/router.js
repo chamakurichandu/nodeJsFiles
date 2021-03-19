@@ -5,7 +5,7 @@ const router=express.Router()
 const signUpTemplateCopy = require('../controller/signUp');
 
      const index=  (req,res)=>{
-        signUpTemplateCopy.find()
+        signUpTemplateCopy.find({email: req.body.email, password: req.body.password})
         .then(response=>{
             res.json({response})
         })
