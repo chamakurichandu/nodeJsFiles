@@ -2,6 +2,8 @@ const express=require('express');
 const app=express();
 const mongoose=require('mongoose');
 const cors=require('cors');
+const address=require('address');
+console.log(address.ip());
 
 //importing router
 

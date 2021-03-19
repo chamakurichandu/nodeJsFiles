@@ -3,21 +3,19 @@ const signUpTemplateCopy=new mongoose.Schema({
     fullName:{
         type:String,
         trim:true,
-        min:8,
-        max:15,
+       
         require:true
     },
     firstName:{
         type:String,
         trim:true,
-        min:3,
+     
         require:true
     },
     lastName:{
         type:String,
         trim:true,
-        min:3,
-        max:3,
+       
         require:true
     },
     email:{
@@ -29,8 +27,7 @@ const signUpTemplateCopy=new mongoose.Schema({
     password:{
         type:String,
         trim:true,
-        min:5,
-        max:15,
+       
         require:true
     },
 
