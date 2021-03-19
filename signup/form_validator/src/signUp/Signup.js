@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import "../App.css";
-export default class Signup extends Component {
+class Signup extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -116,7 +116,8 @@ SignUp=(event)=>{
             this.setState({
                 info: res.data,
             })
-            this.props.setUser(this.state.info)
+            this.state.setUser(this.state.info.fullName)
+            this.props.history.push("/Home");
         })
         if(this.state.fullName&&this.state.firstname&&this.state.password&&this.state.email){
 
@@ -151,8 +152,7 @@ SignUp=(event)=>{
                     <input type="passwordt" className="form-control pt-4 pb-4" placeholder="password" value={this.state.password} onChange={this.passwordHandler}/>
                     <p>{this.state.passworderr&&<span style={{color:"red"}}>Username should be atleast 6 characters length</span>}</p>
                     </div>
-                <Link to="/Home"> <button type="submit" className="btn btn-warning btn-block pt-3 pb-3 text-white">Submit</button></Link>
-                </form>
+                <button type="submit" className="btn btn-warning btn-block pt-3 pb-3 text-white">Submit</button>                </form>
                 <div className="mt-3 float-right">Already have an acount<Link to="/Login"> <button className="btn btn-primary">Login</button></Link></div>
             <div>
             
@@ -161,3 +161,5 @@ SignUp=(event)=>{
         )
     }
 }
+
+export default withRouter(Signup)
