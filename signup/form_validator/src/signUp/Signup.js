@@ -18,6 +18,7 @@ class Signup extends Component {
             emailerr:"",
             info:[],
             setUser:props.setUser
+            
         }
     }
         fullnameHandler=(event)=>{
@@ -40,7 +41,7 @@ class Signup extends Component {
             this.setState({
                 firstname:event.target.value
             },()=>{
-                if(event.target.value.length<8){
+                if(event.target.value.length<4){
                     this.setState({
                         firstnameerr:true
                     })
@@ -56,7 +57,7 @@ class Signup extends Component {
             this.setState({
                 lastname:event.target.value
             },()=>{
-                if(event.target.value.length<8){
+                if(event.target.value.length<4){
                     this.setState({
                         lastnameerr:true
                     })
@@ -89,7 +90,7 @@ passwordHandler=(event)=>{
             this.setState({
                 password:event.target.value
             },()=>{
-                if(event.target.value.length<=8){
+                if(event.target.value.length<=6){
                     this.setState({
                         passworderr:true
                     })
@@ -103,6 +104,8 @@ passwordHandler=(event)=>{
 
 SignUp=(event)=>{
         event.preventDefault();
+
+        window.localStorage.setItem('isAuthenticated',true);
         const registered ={
             fullName:this.state.fullName,
             firstname:this.state.firstname,
@@ -118,7 +121,7 @@ SignUp=(event)=>{
                 this.setState({
                     info: res.data,
                 })
-                this.state.setUser(this.state.info.fullName)
+               this.props.setUser(true)
                 this.props.history.push("/Home");
             })
         }else{
@@ -129,28 +132,28 @@ SignUp=(event)=>{
         return (
             <div className="signUp">
                 <h2 className="text-center text-warning pt-3 pb-3">SignUp</h2>
-                <form onSubmit={this.SignUp}>
+                <form onSubmit={this.SignUp }>
                     <div className="form-group">
                     <input type="text" className="form-control pt-4 pb-4" placeholder="fullName" value={this.state.fullName} onChange={this.fullnameHandler}/>
-                    <p>{this.state.fullnameerr&&<span style={{color:"red"}}>name should be atleast 6 characters length</span>}</p>
+                    <p>{this.state.fullnameerr&&<span style={{color:"red"}}>fullName should be atleast 8 characters length</span>}</p>
                     </div>
                     <div className="form-group">
                     <input type="text" className="form-control pt-4 pb-4" placeholder="firstName" value={this.state.firstname} onChange={this.firstnameHandler}/>
-                    <p>{this.state.firstnameerr&&<span style={{color:"red"}}>name should be atleast 6 characters length</span>}</p>
+                    <p>{this.state.firstnameerr&&<span style={{color:"red"}}>firstName should be atleast 4 characters length</span>}</p>
                     </div>
 
                     <div className="form-group">
                     <input type="text" className="form-control pt-4 pb-4" placeholder="lastName" value={this.state.lastname} onChange={this.lastnameHandler}/>
-                    <p>{this.state.lastnameerr&&<span style={{color:"red"}}>name should be atleast 6 characters length</span>}</p>
+                    <p>{this.state.lastnameerr&&<span style={{color:"red"}}>lastName should be atleast 4 characters length</span>}</p>
                     </div>
 
                     <div className="form-group">
                     <input type="email" className="form-control pt-4 pb-4" placeholder="Email" value={this.state.email} onChange={this.emailHandler}/>
-                    <p>{this.state.emailerr&&<span style={{color:"red"}}>Username should be atleast 6 characters length</span>}</p>
+                    <p>{this.state.emailerr&&<span style={{color:"red"}}>Please enter valid email</span>}</p>
                     </div>
                     <div className="form-group">
-                    <input type="passwordt" className="form-control pt-4 pb-4" placeholder="password" value={this.state.password} onChange={this.passwordHandler}/>
-                    <p>{this.state.passworderr&&<span style={{color:"red"}}>Username should be atleast 6 characters length</span>}</p>
+                    <input type="password" className="form-control pt-4 pb-4" placeholder="password" value={this.state.password} onChange={this.passwordHandler}/>
+                    <p>{this.state.passworderr&&<span style={{color:"red"}}>password should be atleast 6 characters length</span>}</p>
                     </div>
                 <button type="submit" className="btn btn-warning btn-block pt-3 pb-3 text-white">Submit</button>                </form>
                 <div className="mt-3 float-right">Already have an acount<Link to="/Login"> <button className="btn btn-primary">Login</button></Link></div>

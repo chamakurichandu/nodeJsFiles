@@ -1,6 +1,6 @@
 
 const express=require('express');
-const router=express.Router()
+const router=express.Router();
 const signUpTemplateCopy = require('../controller/signUp');
 
      const index=  (req,res)=>{
@@ -24,7 +24,7 @@ router.post('/login',(req,res)=>{
         password:req.body.password
     })
 
-    loginUser.find({email:req.body.email,password:req.body.password})
+    loginUser.find({email:email,password:password})
     .then(data=>{
         res.json(data)
     })
@@ -53,4 +53,4 @@ router.post('/signup',(req,res)=>{
     })
 })
 
-module.exports=router
+module.exports=router;

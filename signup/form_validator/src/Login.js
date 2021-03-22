@@ -21,7 +21,7 @@ import {Link, withRouter} from "react-router-dom";
         this.setState({
             password:pass.target.value
         },()=>{
-            if(pass.target.value.length<=8){
+            if(pass.target.value.length<=6){
                 this.setState({
                     passworderr:true
                 })
@@ -91,7 +91,7 @@ import {Link, withRouter} from "react-router-dom";
                 </div>
                 <div className="form-group">
             <input type="password" className="form-control  pt-4 pb-4" placeholder="Password" name="password" value={this.state.password} onChange={this.passwordHandler}></input>
-            <div>{this.state.passworderr&& <span style={{color:"red"}}>Password must be 8 characters length</span>}</div>
+            <div>{this.state.passworderr&& <span style={{color:"red"}}>Password must be 6 characters length</span>}</div>
                 </div>
                 <div className="float-right mb-3"><a href="/login">Forgot your password?</a></div>
                 <div>

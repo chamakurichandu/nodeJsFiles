@@ -3,8 +3,11 @@ import {BrowserRouter as Router ,Switch,Route} from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./signUp/Signup";
 import Home from "./signUp/Home";
+import ProtectedRoutes from "./ProtectedRoutes";
+
 export default function App() {
-  const [user, setUser] = useState(null)
+
+  const [isAuth, setUser] = useState(false);
   return (
     <div>
       <Router>
@@ -15,12 +18,10 @@ export default function App() {
          <Route exact path="/">
          <Login />
          </Route>
-         <Route exact path="/Login">
+         <Route  path="/Login">
          <Login setUser={setUser} />
          </Route>
-        <Route exact path="/Home">
-          <Home userName={user}/>
-        </Route>
+        <ProtectedRoutes path="/Home"  component={Home} isAuth={isAuth}/>
          </Switch> 
       </Router>
      

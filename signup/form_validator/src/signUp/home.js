@@ -1,9 +1,12 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 
-export default function Home(props) {
+ function Home(props) {
     return (
         <div>
         Welcome to reactjs
         </div>
     )
 }
+
+export default withRouter(Home);
