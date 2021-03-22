@@ -1,5 +1,4 @@
 
-const { response } = require('express');
 const express=require('express');
 const router=express.Router()
 const signUpTemplateCopy = require('../controller/signUp');
@@ -17,6 +16,25 @@ const signUpTemplateCopy = require('../controller/signUp');
      }
 
 router.get('/',index)
+
+
+router.post('/login',(req,res)=>{
+    const loginUser=new signUpTemplateCopy({
+        email:req.body.email,
+        password:req.body.password
+    })
+
+    loginUser.find({email:req.body.email,password:req.body.password})
+    .then(data=>{
+        res.json(data)
+    })
+    .catch(error=>{
+        res.json({
+            message:"something went wrong"
+        })
+    })
+})
+
 router.post('/signup',(req,res)=>{
     const signUpUser=new signUpTemplateCopy({
         fullName:req.body.fullName,

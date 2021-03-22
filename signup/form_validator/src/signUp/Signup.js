@@ -111,16 +111,16 @@ SignUp=(event)=>{
             email:this.state.email
         }
 
-        axios.post('http://localhost:2000/api/signup',registered)
-        .then(res=>{
-            this.setState({
-                info: res.data,
+       
+        if(this.state.fullName&&this.state.firstname&&this.state.lastname&&this.state.password&&this.state.email){
+            axios.post('http://localhost:2000/api/signup',registered)
+            .then(res=>{
+                this.setState({
+                    info: res.data,
+                })
+                this.state.setUser(this.state.info.fullName)
+                this.props.history.push("/Home");
             })
-            this.state.setUser(this.state.info.fullName)
-            this.props.history.push("/Home");
-        })
-        if(this.state.fullName&&this.state.firstname&&this.state.password&&this.state.email){
-
         }else{
             alert('please fill the all fields');
         }

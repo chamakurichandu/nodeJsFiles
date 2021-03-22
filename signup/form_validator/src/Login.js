@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import GoogleLogin from 'react-google-login';
 import "./App.css";
-import {Link} from "react-router-dom";
-export default class Login extends Component {
-    constructor(){
-        super();
-
-        this.passwordHandler = this.passwordHandler.bind(this);
-        this.emailHandler = this.emailHandler.bind(this);
-
-        this.logIn = this.logIn.bind(this);
-
+import axios from "axios";
+import {Link, withRouter} from "react-router-dom";
+ class Login extends Component {
+    constructor(props){
+        super(props);
         this.state={
             email:"",
             emailerr:false,
             password:"",
-            passworderr:false
+            passworderr:false,
+           
+            info:[]
+
         }
     }
 
@@ -53,33 +51,23 @@ export default class Login extends Component {
         
         logIn=(event)=>{
             event.preventDefault();
-            localStorage.setItem('document',JSON.stringify(this.state));
-            if(this.state.email!==""&&this.state.password!==""){
-             window.location="have to mention"
-                   
+            if(this.state.password&&this.state.email){
+                axios.get('http://localhost:2000/api/login')
+                .then(res=>{
+                    this.setState({
+                        info: res.data,
+                    })
+                    this.props.setUser.history.push("/Home");
+                })
             }else{
-                alert("Please fill all the  fields")
+                alert('please fill the all fields');
             }
-        }
-        componentDidMount(){
-            this.documentData = JSON.parse(localStorage.getItem('document'));
-            if (localStorage.getItem('document')) {
-                this.setState({
-                   // email: this.documentData.email,
-                   //password: this.documentData.password,
-                   
-            })
-        } else {
-            this.setState({
-                email: '',
-                password: ''
-            })
-        }
-        }
+    }    
+       
 
         responseGoogle = (response) => {
             if(response.profileObj) {
-                window.location = '/Converter'
+                window.location = '/Home'
             }
             console.log(response);
           }
@@ -119,3 +107,4 @@ export default class Login extends Component {
         )
     }
 }
+export default withRouter(Login)
