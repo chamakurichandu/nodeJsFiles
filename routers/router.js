@@ -19,14 +19,11 @@ router.get('/',index)
 
 
 router.post('/login',(req,res)=>{
-    const loginUser=new signUpTemplateCopy({
-        email:req.body.email,
-        password:req.body.password
-    })
+    
 
-    loginUser.find({email:email,password:password})
+    signUpTemplateCopy.find({email:req.body.email,password:req.body.password})
     .then(data=>{
-        res.json(data)
+        data.length>0?res.status(200).json(data):res.status(401).json({error: 'Inavalid email or password'})
     })
     .catch(error=>{
         res.json({

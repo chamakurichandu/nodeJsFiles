@@ -156,7 +156,7 @@ SignUp=(event)=>{
                     <p>{this.state.passworderr&&<span style={{color:"red"}}>password should be atleast 6 characters length</span>}</p>
                     </div>
                 <button type="submit" className="btn btn-warning btn-block pt-3 pb-3 text-white">Submit</button>                </form>
-                <div className="mt-3 float-right">Already have an acount<Link to="/Login"> <button className="btn btn-primary">Login</button></Link></div>
+                <div className="mt-3 float-right">Already have an acount<Link to="/"> <button className="btn btn-primary">Login</button></Link></div>
             <div>
             
             </div>

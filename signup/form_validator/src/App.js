@@ -16,11 +16,9 @@ export default function App() {
            <SignUp setUser={setUser}/>
          </Route>
          <Route exact path="/">
-         <Login />
-         </Route>
-         <Route  path="/Login">
          <Login setUser={setUser} />
          </Route>
+        
         <ProtectedRoutes path="/Home"  component={Home} isAuth={isAuth}/>
          </Switch> 
       </Router>

@@ -11,9 +11,9 @@ import {Link, withRouter} from "react-router-dom";
             emailerr:false,
             password:"",
             passworderr:false,
-           
-            info:[]
-
+            info:[],
+            setUser:props.setUser,
+          
         }
     }
 
@@ -50,14 +50,28 @@ import {Link, withRouter} from "react-router-dom";
         }
         
         logIn=(event)=>{
+
+           
             event.preventDefault();
+            window.localStorage.setItem('isAuthenticated',true);
+            const credentials={
+                email:this.state.email,
+                password:this.state.password
+            }
             if(this.state.password&&this.state.email){
-                axios.get('http://localhost:2000/api/login')
+                axios.post('http://localhost:2000/api/login', credentials)
                 .then(res=>{
-                    this.setState({
-                        info: res.data,
-                    })
-                    this.props.setUser.history.push("/Home");
+                    if(res.status===200){
+                        this.setState({
+                            info: res.data,
+                        })
+                        this.state.setUser(true)
+                    }else{
+                        this.state.setUser(false)
+                    }
+                    this.props.history.push("/Home");
+                }).catch(err => {
+                    alert('Invalid email or password')
                 })
             }else{
                 alert('please fill the all fields');
@@ -67,7 +81,8 @@ import {Link, withRouter} from "react-router-dom";
 
         responseGoogle = (response) => {
             if(response.profileObj) {
-                window.location = '/Home'
+                this.state.setUser(true)
+                this.props.history.push("/Home");
             }
             console.log(response);
           }
@@ -81,7 +96,7 @@ import {Link, withRouter} from "react-router-dom";
     onSuccess={this.responseGoogle}
     onFailure={this.responseGoogle}
     cookiePolicy={'single_host_origin'}
-  className="p-3" /> <span className="pl-5" style={{fontSize:"24px",fontWeight:"bolder"}}> or Login with your email</span></div>
+  className="p-3 google-1" /> <span className="choose" >or</span><span className="pl-5 option" style={{fontSize:"24px",fontWeight:"bolder"}}> or Login with your email</span></div>
   
 
             <form  onSubmit={this.logIn}>
@@ -93,7 +108,7 @@ import {Link, withRouter} from "react-router-dom";
             <input type="password" className="form-control  pt-4 pb-4" placeholder="Password" name="password" value={this.state.password} onChange={this.passwordHandler}></input>
             <div>{this.state.passworderr&& <span style={{color:"red"}}>Password must be 6 characters length</span>}</div>
                 </div>
-                <div className="float-right mb-3"><a href="/login">Forgot your password?</a></div>
+                <div className="float-right mb-3"><a href="/">Forgot your password?</a></div>
                 <div>
                     <button type="submit" className="btn btn-primary btn-block  pt-3 pb-3">Login</button>
                 </div>

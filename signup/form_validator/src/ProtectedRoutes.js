@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React  from 'react'
 import {Route,Redirect} from "react-router-dom";
 
 const isAuthenticated =window.localStorage.getItem('isAuthenticated');
@@ -10,7 +10,7 @@ export default function ProtectedRoutes({isAuth:isAuth,component:Component, ...r
                     if(isAuth){
                         return <Component/>
                 }else{
-                    return <Redirect to={{pathname:"/SignUp", state:{from:props.location}}} />
+                    return <Redirect to={{pathname:"/", state:{from:props.location}}} />
                 }
                 }}/>
                 
