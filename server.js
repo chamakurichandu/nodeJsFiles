@@ -19,15 +19,10 @@ app.use(express.json());
 app.use(cors());
 app.use('/api',routerUrl)
 
-app.get('/abc',(req,res)=>{
-    res.send('welcome to react')
-})
-
 const PORT=2000
 app.listen(PORT,()=>{
     console.log(`Server listening at port no${PORT}`)
 })
-
 
 
 

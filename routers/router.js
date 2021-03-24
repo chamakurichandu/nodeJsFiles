@@ -49,5 +49,26 @@ router.post('/signup',(req,res)=>{
         res.json(error)
     })
 })
+  router.delete('/:id', (req,res)=>{
+      signUpTemplateCopy.remove({_id:req.params.id})
+      .then(data=>{
+          res.json(data)
+      })
+      .catch(err=>{
+          res.json(err)
+      })
+
+  })
+  router.put('/:id',(req,res)=>{
+  const updating= new  signUpTemplateCopy({_id:req.params.id,fullName:req.body.fullName})
+
+  signUpTemplateCopy.updateOne({_id:req.params.id},updating)
+      .then(data=>{
+         
+          res.json(data)
+      }).catch(err=>{
+          res.json(err)
+      })
+  })
 
 module.exports=router;
