@@ -112,9 +112,7 @@ SignUp=(event)=>{
             lastname:this.state.lastname,
             password:this.state.password,
             email:this.state.email
-        }
-
-       
+        } 
         if(this.state.fullName&&this.state.firstname&&this.state.lastname&&this.state.password&&this.state.email){
             axios.post('http://localhost:2000/api/signup',registered)
             .then(res=>{
@@ -122,7 +120,7 @@ SignUp=(event)=>{
                     info: res.data,
                 })
                this.props.setUser(true)
-                this.props.history.push("/Home");
+                this.props.history.push("/");
             })
         }else{
             alert('please fill the all fields');
@@ -158,7 +156,6 @@ SignUp=(event)=>{
                 <button type="submit" className="btn btn-warning btn-block pt-3 pb-3 text-white">Submit</button>                </form>
                 <div className="mt-3 float-right">Already have an acount<Link to="/"> <button className="btn btn-primary">Login</button></Link></div>
             <div>
-            
             </div>
             </div>
         )
