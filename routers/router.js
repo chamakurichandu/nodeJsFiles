@@ -1,47 +1,51 @@
 
 const express=require('express');
 const router=express.Router();
-const signUpTemplateCopy = require('../controller/signUp');
+const foodCopy = require('../controller/signUp');
 
-     const index=  (req,res)=>{
-        signUpTemplateCopy.find()
-        .then(response=>{
-            res.json({response})
-        })
-        .catch(error=>{
-            res.json({
-                message:"an error occured"
-            })
-        })
-     }
+    //  const index=  (req,res)=>{
+    //     foodCopy.find()
+    //     .then(response=>{
+    //         res.json({response})
+    //     })
+    //     .catch(error=>{
+    //         res.json({
+    //             message:"an error occured"
+    //         })
+    //     })
+    //  }
 
-router.get('/',index)
+// router.get('/',index)
 
 
-router.post('/login',(req,res)=>{
+// router.get('/login',(req,res)=>{
     
 
-    signUpTemplateCopy.find({email:req.body.email,password:req.body.password})
-    .then(data=>{
-        data.length>0?res.status(200).json(data):res.status(401).json({error: 'Inavalid email or password'})
-    })
-    .catch(error=>{
-        res.json({
-            message:"something went wrong"
-        })
+//     foodCopy.find({foodName:req.body.foodName, daysSinceIAte:req.body.daysSinceIAte})
+//     .then(data=>{
+//         data.length>0?res.status(200).json(data):res.status(401).json({error: 'Inavalid email or password'})
+//     })
+//     .catch(error=>{
+//         res.json({
+//             message:"something went wrong"
+//         })
+//     })
+// })
+router.get('/veg',(req,res)=>{
+    foodCopy.find()
+    .then(response=>{
+        res.json({response})
     })
 })
 
 router.post('/signup',(req,res)=>{
-    const signUpUser=new signUpTemplateCopy({
-        fullName:req.body.fullName,
-        firstName:req.body.firstName,
-        lastName:req.body.lastName,
-        email:req.body.email,
-        password:req.body.password
+    const foodUser=new foodCopy({
+        foodName:req.body.foodName,
+        daysSinceIAte:req.body.daysSinceIAte,
+        
     })
 
-    signUpUser.save()
+    foodUser.save()
     .then(data=>{
         res.json(data)
     })
@@ -50,7 +54,7 @@ router.post('/signup',(req,res)=>{
     })
 })
   router.delete('/:id', (req,res)=>{
-      signUpTemplateCopy.remove({_id:req.params.id})
+      foodCopy.remove({_id:req.params.id})
       .then(data=>{
           res.json(data)
       })
@@ -60,9 +64,9 @@ router.post('/signup',(req,res)=>{
 
   })
   router.put('/:id',(req,res)=>{
-  const updating= new  signUpTemplateCopy({_id:req.params.id,fullName:req.body.fullName})
+  const updating= new  foodCopy({_id:req.params.id,foodName:req.body.foodName})
 
-  signUpTemplateCopy.updateOne({_id:req.params.id},updating)
+  foodCopy.updateOne({_id:req.params.id},updating)
       .then(data=>{
          
           res.json(data)
